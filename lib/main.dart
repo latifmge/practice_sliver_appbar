@@ -25,21 +25,28 @@ class _MyAppState extends State<MyApp> {
                   (BuildContext context, bool innerBoxIsScrolled) {
                 return <Widget>[
                   const SliverAppBar(
-                    pinned: true,
-                    floating: true,
-                    title: Text("My App"),
-                    bottom: TabBar(
-                      tabs: [
-                        Tab(text: 'Tab 1'),
-                        Tab(text: 'Tab 2'),
-                      ],
+                    title: Text('My App'),
+                    expandedHeight: 100,
+                    pinned: false,
+                    floating: false,
+                    flexibleSpace: FlexibleSpaceBar(
+                      background: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          TabBar(
+                            tabs: [
+                              Tab(text: 'Tab 1'),
+                              Tab(text: 'Tab 2'),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ];
               },
               body: TabBarView(
                 children: [
-                  // Tab 1 dengan RefreshIndicator sendiri
                   RefreshIndicator(
                     displacement: 10,
                     onRefresh: () async {
@@ -57,7 +64,6 @@ class _MyAppState extends State<MyApp> {
                       },
                     ),
                   ),
-                  // Tab 2 dengan RefreshIndicator sendiri
                   RefreshIndicator(
                     displacement: 10,
                     onRefresh: () async {
