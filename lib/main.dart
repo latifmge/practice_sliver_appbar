@@ -15,36 +15,11 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final ScrollController _scrollController = ScrollController();
   bool _showAppBar = true;
 
   @override
   void initState() {
     super.initState();
-    _scrollController.addListener(_onScroll);
-  }
-
-  void _onScroll() {
-    log('Scroll position: ${_scrollController.position.pixels}');
-    if (_scrollController.position.userScrollDirection ==
-        ScrollDirection.reverse) {
-      log('ScrollDirection.reverse: ${_scrollController.position.userScrollDirection})');
-      // Jika scroll ke bawah, sembunyikan AppBar
-      if (_showAppBar) {
-        setState(() {
-          _showAppBar = false;
-        });
-      }
-    } else if (_scrollController.position.userScrollDirection ==
-        ScrollDirection.forward) {
-      log('ScrollDirection.forward: ${_scrollController.position.userScrollDirection})');
-      // Jika scroll ke atas, tampilkan AppBar (tanpa harus mentok ke atas)
-      if (!_showAppBar) {
-        setState(() {
-          _showAppBar = true;
-        });
-      }
-    }
   }
 
   @override
@@ -55,7 +30,7 @@ class _MyAppState extends State<MyApp> {
           length: 2,
           child: Scaffold(
             body: NestedScrollView(
-              controller: _scrollController,
+              // controller: _scrollController,
               physics: const BouncingScrollPhysics(),
               headerSliverBuilder:
                   (BuildContext context, bool innerBoxIsScrolled) {
@@ -117,8 +92,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void dispose() {
-    _scrollController.removeListener(_onScroll);
-    _scrollController.dispose();
     super.dispose();
   }
 }
